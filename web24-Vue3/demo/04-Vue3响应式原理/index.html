@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="Keywords" content="">
+
+	<title>Title</title>
+	<link rel="shortcut icon" href="" type="image/x-icon">
+</head>
+<body>
+
+	<script>
+		// 源数据
+		let person = {name: 'kaede', age: 20};
+	
+		// 模拟Vue2中实现响应式
+		/* let p = {};
+		Object.defineProperty(p, 'age', {
+			get() {return person.age},
+			set(value) {person.age = value}
+		});
+		Object.defineProperty(p, 'name', {
+			get() {return person.name},
+			set(value) {person.name = value}
+		}); */
+		
+		// 模拟Vue3中实现响应式
+		// let p = new Proxy(person, {});
+		let p = new Proxy(person, {
+			// 读取属性时调用
+			get(target, propName, receiver) {
+				console.log(target);
+				console.log('get => ' + propName);
+				// return target[propName];
+				return Reflect.get(target, propName);
+			},
+			// 修改或增加属性时调用
+			set(target, propName, value, receiver) {
+				console.log(target);
+				console.log('set => '+ propName + ' = ' + value);
+				// target[propName] = value;
+				Reflect.set(target, propName, value);
+			},
+			// 删除属性时调用
+			deleteProperty(target, propName) {
+				console.log(target);
+				console.log('deleteProperty => ' + propName);
+				// return delete target[propName];
+				return Reflect.deleteProperty(target, propName);
+			}
+		});
+	</script>
+
+</body>
+</html>
