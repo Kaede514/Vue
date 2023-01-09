@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="Keywords" content="">
+
+	<title>Title</title>
+	<link rel="shortcut icon" href="" type="image/x-icon">
+</head>
+<body>
+
+	<script>
+		let data = {
+			name: 'kaede'
+		};
+		function Observer(obj) {
+			// 汇总对象中所有的属性形成一个数组
+			let keys = Object.keys(obj);
+			keys.forEach((k) => {
+				Object.defineProperty(this, k, {
+					get() {
+						return obj[k];
+					},
+					set(val) {
+						console.log(`${k}被修改了，解析模板，生成虚拟DOM...`);
+						obj[k] = val;
+					}
+				})
+			});
+		}
+		// 创建一个监视的实例对象，用于监测data中属性的变化
+		let obs = new Observer(data);
+		let vue = {};
+		vue._data = data = obs;
+		console.log(vue);
+	</script>
+
+</body>
+</html>

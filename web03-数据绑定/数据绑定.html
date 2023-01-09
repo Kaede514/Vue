@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="Keywords" content="">
+
+  <title>Title</title>
+  <link rel="shortcut icon" href="" type="image/x-icon">
+  <script src="../lib/vue.min.js"></script>
+</head>
+<body>
+
+    <div id="app">
+		单向数据绑定：<input type="text" :value="msg"><br/>
+		双向数据绑定：<input type="text" v-model="msg">
+	</div>
+	<script>
+		const vue = new Vue({
+			el: '#app',
+			data: {
+				msg: 'message'
+			}
+		});
+		let ipts = document.querySelectorAll('input');
+		for (let i = 0; i < ipts.length; i++) {
+			ipts[i].addEventListener('blur', () => console.log(vue.msg));
+		}
+	</script>
+
+</body>
+</html>

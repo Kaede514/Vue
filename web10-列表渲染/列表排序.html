@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="Keywords" content="">
+
+	<title>Title</title>
+	<link rel="shortcut icon" href="" type="image/x-icon">
+	<script src="../lib/vue.min.js"></script>
+</head>
+<body>
+
+	<div id="app">
+		<input type="text" v-model="keyWord" placeholder="请输入要搜索的名字">
+		<button @click="sortType=1">年龄升序</button>
+		<button @click="sortType=2">年龄降序</button>
+		<button @click="sortType=0">默认排序</button>
+		<ul>
+			<li v-for="item in filPersons" :key="item.id">
+				{{item.name}} - {{item.age}}
+			</li>
+		</ul>
+	</div>
+	<script>
+		const vue = new Vue({
+			el: '#app',
+			data: {
+				persons: [
+					{id: '001', name: 'kaede', age: 20},
+					{id: '002', name: 'asahi', age: 18},
+					{id: '003', name: 'user', age: 24},
+					{id: '004', name: 'root', age: 26}
+				],
+				keyWord: '',
+				//0为默认顺序，1为升序，2为降序
+				sortType: 0
+			},
+			computed: {
+				filPersons() {
+					const arr = this.persons.filter((val) => {
+						return val.name.indexOf(this.keyWord) != -1;
+					});
+					switch (this.sortType) {
+						case 0:
+							return arr;
+						case 1:
+							return arr.sort((a, b) => a.age - b.age);
+						case 2:
+							return arr.sort((a, b) => b.age - a.age);
+					}
+
+				}
+			}
+		});
+	</script>
+
+</body>
+</html>

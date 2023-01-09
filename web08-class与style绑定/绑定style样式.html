@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="Keywords" content="">
+
+	<title>Title</title>
+	<link rel="shortcut icon" href="" type="image/x-icon">
+	<script src="../lib/vue.min.js"></script>
+	<style>
+		.basic {
+			display: block;
+			width: 400px;
+			height: 60px;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="app">
+		<!-- 绑定class样式，也有字符串、数组和对象写法 -->
+		<div class="basic" style="background-color: pink;" :style="obj">{{name}}</div>
+		<button @click="changeStyle">changeStyle</button>
+	</div>
+	<script>
+		const vue = new Vue({
+			el: '#app',
+			data: {
+				name: 'kaede',
+				fSize: 24
+			},
+			methods: {
+				changeStyle() {
+					this.fSize++;
+				}
+			},
+			computed: {
+				obj() {
+					return {
+						fontSize: this.fSize + 'px',
+						'border-radius': '10px'
+					}
+				}
+			}
+		});
+	</script>
+
+</body>
+</html>

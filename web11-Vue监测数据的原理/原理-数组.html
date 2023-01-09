@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="Keywords" content="">
+
+	<title>Title</title>
+	<link rel="shortcut icon" href="" type="image/x-icon">
+	<script src="../lib/vue.min.js"></script>
+</head>
+<body>
+
+	<div id="app">
+		<h2>name：{{stu.name}}</h2>
+		<ul>
+			<li v-for="(h,index) in stu.hobbies" :key="index">
+				{{h}}
+			</li>
+		</ul>
+		<ul>
+			<li v-for="(val, key) in stu.course" :key="key">
+				{{val}}
+			</li>
+		</ul>
+	</div>
+	<script>
+		const vue = new Vue({
+			el: '#app',
+			data: {
+				stu: {
+					name: 'kaede',
+					hobbies: ['anime', 'comic'],
+					course: {c1: 'math', c2: 'english'}
+				}
+			}
+		});
+	</script>
+
+</body>
+</html>

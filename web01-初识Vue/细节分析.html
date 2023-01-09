@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="Keywords" content="">
+
+	<title>Title</title>
+	<link rel="shortcut icon" href="../image/icon.jpg" type="image/x-icon">
+	<script src="../lib/vue.min.js"></script>
+</head>
+<body>
+
+	<div class="app">
+		<!-- {{}}中书写js表达式(产生值) -->
+		<h1>Hello, {{name.toUpperCase()}}-1 {{1+1}} {{Date.now()}}</h1>
+		<!-- age is not defined -->
+		<!-- <h2>age = {{age}}</h2> -->
+	</div>
+	<div class="app">
+		<h1>Hello, {{name}}-2</h1>
+	</div>
+	<script>
+		// 一个Vue实例只会绑定第一个容器
+		new Vue({
+			el: '.app',
+			data: {
+				name: 'kaede'
+			}
+		});
+		// 一个容器只能和一个Vue实例绑定，即一一对应
+		new Vue({
+			el: '.app',
+			data: {
+				age: 20
+			}
+		});
+	</script>
+
+</body>
+</html>

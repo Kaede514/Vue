@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="Keywords" content="">
+
+	<title>Title</title>
+	<link rel="shortcut icon" href="" type="image/x-icon">
+	<script src="../lib/vue.min.js"></script>
+</head>
+<body>
+
+	<div id="app">
+		<button @click="addSex">添加性别</button>
+		<button @click="updateSex">修改性别</button>
+		<button @click="addFriend">添加朋友</button>
+		<button @click="updateFriend">修改朋友</button>
+		<button @click="updateHobby">修改爱好</button>
+		<h2>name：{{stu.name}}</h2>
+		<h2>age：{{stu.age}}</h2>
+		<h2 v-if="stu.sex">sex：{{stu.sex}}</h2>
+		<ul>
+			<li v-for="(f,index) in stu.friends" :key="index">
+				{{f}}
+			</li>
+		</ul>
+		<ul>
+			<li v-for="(h,index) in stu.hobbies" :key="index">
+				{{h}}
+			</li>
+		</ul>
+	</div>
+	<script>
+		const vue = new Vue({
+			el: '#app',
+			data: {
+				stu: {
+					name: 'kaede',
+					age: 20,
+					friends: [
+						{name: 'user1', age: 20},
+						{name: 'user2', age: 22}
+					],
+					hobbies: ['anime', 'comic']
+				}
+			},
+			methods: {
+				addSex() {
+					Vue.set(this.stu, 'sex', 'male');
+				},
+				updateSex() {
+					this.stu.sex = 'female';
+				},
+				addFriend() {
+					this.stu.friends.push({name: 'user3', age: 24});
+				},
+				updateFriend() {
+					// friends[0].name有setter，故有效
+					this.stu.friends[0].name = 'root';
+				},
+				updateHobby() {
+					// 从第1个开始删1个，删完之后插入game
+					this.stu.hobbies.splice(1, 1, 'game');
+				}
+			}
+		});
+	</script>
+
+</body>
+</html>

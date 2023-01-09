@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="Keywords" content="">
+
+	<title>Title</title>
+	<link rel="shortcut icon" href="" type="image/x-icon">
+	<script src="../lib/vue.min.js"></script>
+</head>
+<body>
+
+	<div id="app">
+		<h2 :style="{opacity}">Hello World</h2>
+		<button @click="stop">停止透明度变化</button>
+		<button @click="opacity=1">点击恢复默认透明度</button>
+	</div>
+	<script>
+		const vue = new Vue({
+			el: '#app',
+			data: {
+				opacity: 1
+			},
+			methods: {
+				stop() {
+					// 开发中不建议自我销毁，销毁时定时器不会自动销毁
+					this.$destroy();
+				}
+			},
+			// Vue完成模板解析并把初始的真实的DOM元素放入页面后(挂载完毕)调用mounted()
+			mounted() {
+				this.timer = setInterval(() => {
+					this.opacity -= 0.01;
+					if (this.opacity <= 0) this.opacity = 1;
+				}, 16);
+			},
+			beforeDestroy() {
+				clearInterval(this.timer);
+			}
+		});
+		// 通过外部的定时器实现(不推荐)
+		/* setInterval(() => {
+			vue.opacity -= 0.01;
+			if (vue.opacity <= 0) vue.opacity = 1;
+		}, 16); */
+	</script>
+
+</body>
+</html>

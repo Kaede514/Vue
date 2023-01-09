@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="Keywords" content="">
+
+	<title>Title</title>
+	<link rel="shortcut icon" href="" type="image/x-icon">
+	<script src="../lib/vue.min.js"></script>
+</head>
+<body>
+
+	<div id="app">
+		<button @click="updateFirst">更改第一项</button>
+		<ul>
+			<li v-for="item in persons" :key="item.id">
+				{{item.name}} - {{item.age}}
+			</li>
+		</ul>
+	</div>
+	<script>
+		const vue = new Vue({
+			el: '#app',
+			data: {
+				persons: [
+					{id: '001', name: 'kaede', age: 20},
+					{id: '002', name: 'asahi', age: 18},
+					{id: '003', name: 'user', age: 24},
+					{id: '004', name: 'root', age: 26}
+				]
+			},
+			methods: {
+				updateFirst() {
+					// 生效
+					// this.persons[0].name = 'admin';
+					// this.persons[0].age = 22;
+					// 不生效
+					this.persons[0] = {id: '001', name: 'admin', age: 22};
+				}
+			}
+		});
+	</script>
+
+</body>
+</html>

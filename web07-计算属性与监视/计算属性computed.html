@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="Keywords" content="">
+
+	<title>Title</title>
+	<link rel="shortcut icon" href="" type="image/x-icon">
+	<script src="../lib/vue.min.js"></script>
+</head>
+<body>
+
+	<div id="app">
+		姓：<input type="text" v-model="fName"><br/>
+		名：<input type="text" v-model="lName"><br/>
+		全名：<span>{{fName.slice(0,3)+lName}}</span><br/>
+		全名：<span>{{fullName()}}</span><br/>
+		全名：<span>{{fullName()}}</span><br/>
+		全名：<span>{{fullname}}</span><br/>
+		全名：<span>{{fullname}}</span><br/>
+	</div>
+	<script>
+		const vue = new Vue({
+			el: '#app',
+			data: {
+				fName: '张',
+				lName: '三'
+			},
+			methods: {
+				fullName() {
+					console.log('fullName()被调用...')
+					return this.fName.slice(0,3) + this.lName;
+				}
+			},
+			computed: {
+				/* fullname: {
+					// 当属性被读取时get会被调用，且返回值就作为属性的值
+					// 调用时机：初次读取该属性时；所依赖的数据发生变化时
+					// 调用后会放入缓存，提高运行效率
+					get() {
+						console.log('get()被调用...')
+						return this.fName.slice(0,3) + this.lName;
+					},
+					// 属性不需要修改时，无需写set()方法
+					set(value) {
+						console.log('set()被调用...')
+						const arr = value.split('-');
+						this.fName = arr[0];
+						this.lName = arr[1];
+					}
+				} */
+				// 相当于getter
+				fullname() {
+					return this.fName.slice(0, 3) + this.lName;
+				}
+			}
+		});
+	</script>
+
+</body>
+</html>

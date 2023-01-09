@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="Keywords" content="">
+
+	<title>Title</title>
+	<link rel="shortcut icon" href="" type="image/x-icon">
+	<script src="../lib/vue.min.js"></script>
+</head>
+<body>
+
+	<div id="app">
+		<!-- 3.编写组件标签，使用组件 -->
+		<stu></stu>
+		<hr/>
+		<pet></pet>
+		<hr/>
+		<hello></hello>
+	</div>
+	<script>
+		// 1.创建组件
+		const student = Vue.extend({
+			// 最终所有的组件都要被Vue实例管理，由Vue实例决定服务于哪个容器
+			// 书写模板
+			template: `
+				<div>
+					<h2>学生姓名：{{name}}</h2>
+					<h2>学生性别：{{sex}}</h2>
+					<button @click="showName">点击弹出学生姓名</button>
+				</div>
+			`,
+			// 必须写成函数式，这样每次调用都会返回新的对象，调用者对对象的修改不会影响其他调用者
+			data() {
+				return {
+					name: '张三',
+					sex: '男'
+				}
+			},
+			methods: {
+				showName() {
+					alert(this.name);
+				}
+			}
+		});
+		const pet = Vue.extend({
+			template: `
+				<div>
+					<h2>宠物姓名：{{name}}</h2>
+					<h2>宠物年龄：{{age}}</h2>
+				</div>
+			`,
+			data() {
+				return {
+					name: '小草',
+					age: 3
+				}
+			}
+		});
+		// 全局注册组件
+		const hello = Vue.extend({
+			template: `
+				<div>
+					<h2>Hello World</h2>
+				</div>
+			`
+		});
+		Vue.component('hello', hello);
+		const vue = new Vue({
+			el: '#app',
+			// 2.局部注册组件
+			components: {
+				stu: student,
+				pet
+			}
+			/* data: {
+				stuName: '张三',
+				sex: '男',
+				petName: '小草',
+				age: 3
+			} */
+		});
+	</script>
+
+</body>
+</html>
